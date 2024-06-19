@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liked Products</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .liked-products-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        img {
+            max-width: 100px;
+        }
+
+        .remove-button {
+            padding: 8px 12px;
+            background-color: #ff4c4c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .remove-button:hover {
+            background-color: #ff0000;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="liked-products-container">
+        <h2>Liked Products</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="likedProductsTable">
+                <!-- Liked products will be injected here by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Function to display liked products
+        function displayLikedProducts() {
+            const likedItems = JSON.parse(localStorage.getItem('likedItems')) || [];
+            const likedProductsTable = document.getElementById('likedProductsTable');
+            likedProductsTable.innerHTML = '';
+
+            likedItems.forEach(item => {
+                const row = document.createElement('tr');
+
+                const imgCell = document.createElement('td');
+                const imgElement = document.createElement('img');
+                imgElement.src = item.image;
+                imgElement.alt = 'Liked Product';
+                imgCell.appendChild(imgElement);
+
+                const priceCell = document.createElement('td');
+                priceCell.innerText = item.price;
+
+                const actionCell = document.createElement('td');
+                const removeButton = document.createElement('button');
+                removeButton.innerText = 'Remove';
+                removeButton.classList.add('remove-button');
+                removeButton.addEventListener('click', () => {
+                    removeLikedItem(item.image);
+                });
+                actionCell.appendChild(removeButton);
+
+                row.appendChild(imgCell);
+                row.appendChild(priceCell);
+                row.appendChild(actionCell);
+
+                likedProductsTable.appendChild(row);
+            });
+        }
+
+        // Function to remove liked item
+        function removeLikedItem(image) {
+            let likedItems = JSON.parse(localStorage.getItem('likedItems')) || [];
+            likedItems = likedItems.filter(item => item.image !== image);
+            localStorage.setItem('likedItems', JSON.stringify(likedItems));
+            displayLikedProducts();
+        }
+
+        // Display liked products on page load
+        document.addEventListener('DOMContentLoaded', displayLikedProducts);
+    </script>
+</body>
+
+</html>

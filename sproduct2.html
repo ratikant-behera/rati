@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Product</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+         @media (max-width: 799px) {
+            #cart-count {
+                position: absolute;
+                top: -18px;
+                /* right: -15px; */
+                right: -500px;
+                background-color: white;
+                color: white;
+                border-radius: 50%;
+                padding: 2px 6px;
+                font-size: 12px;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 20px;
+                height: 20px;
+            }
+
+        } 
+
+         #cart-count {
+            position: absolute;
+            top: -18px;
+            right: -15px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+        } 
+
+        #cart-count-mobile {
+            position: absolute;
+            top: 3px;
+            right: 115px;
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+        }
+
+        #navbar a[href="cart.html"] {
+            position: relative;
+        }
+
+        #prodetails .single-pro-image img {
+            width: 100%;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+            transition: transform 0.3s ease-in-out;
+            transform-origin: center;
+            /* Ensures scaling from the center */
+        }
+
+        #prodetails .single-pro-image img:hover {
+            transform: scale(1.1);
+        }
+
+        #prodetails .small-img-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+
+        #prodetails .small-img-col {
+            width: 24%;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #prodetails .small-img-col img {
+            width: 100%;
+            border: 1px solid #e0e0e0;
+            border-radius: 5px;
+        }
+
+        .number-input {
+            display: flex;
+            align-items: center;
+            width: 120px;
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .number-input input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .number-input .btn-minus,
+        .number-input .btn-plus {
+            background-color: #f1f1f1;
+            border: none;
+            color: #000;
+            cursor: pointer;
+            font-size: 16px;
+            line-height: 1;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            user-select: none;
+        }
+
+        .number-input .btn-minus:hover,
+        .number-input .btn-plus:hover {
+            background-color: #ddd;
+        }
+
+        .number-input .btn-minus {
+            border-radius: 5px 0 0 5px;
+        }
+
+        .number-input .btn-plus {
+            border-radius: 0 5px 5px 0;
+        }
+
+        @media (max-width: 477px) {
+            #prodetails {
+                display: flex;
+                flex-direction: column;
+            }
+
+            #prodetails .single-pro-image {
+                width: 100%;
+                margin-right: 0px;
+            }
+
+            #prodetails .single-pro-details {
+                width: 100%;
+            }
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+    <section id="header">
+        <a href="#"><img src="img/logo.png" class="logo" alt="Logo"></a>
+        <div class="nav-search">
+            <input id="search-input" placeholder="Search Product" class="search-input">
+            <button class="search-icon"><i class="fa-solid fa-magnifying-glass"></i></button>
+            <button id="voice-search-btn" class="search-icon"><i class="fa-solid fa-microphone"></i></button>
+        </div>
+
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Shop</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="contact.html">Contact</a></li>
+
+
+                <li>
+                    <a href="liked.html">
+                        <i class="fa-regular fa-heart"></i>
+                        <span id="wishlistCountDesktop" style="display: none;"></span>
+                    </a>
+                </li>
+                <li><a href="cart2.html">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                        <span id="cart-count" class="cart-count">0</span>
+                    </a></li>
+
+                <a href="#" id="close"><i class="fa-solid fa-xmark"></i></a>
+
+            </ul>
+        </div>
+
+        <div id="mobile">
+            <!-- <a href="cart.html"><i class="fa-solid fa-bag-shopping"></i></a> -->
+            <a href="cart2.html">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span id="cart-count-mobile" class="cart-count">0</span>
+            </a>
+            <a href="liked.html">
+                <i class="fa-regular fa-heart"></i>
+                <span id="wishlistCountMobile" style="display: none;"></span>
+            </a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+    </section>
+    <section id="page-header">
+        <h2>#stayhome</h2>
+        <p>Save more with coupons & up to 70% off!</p>
+    </section>
+
+
+    <section id="prodetails" class="section-p1">
+        <div class="single-pro-image">
+            <img src="" id="mainImage" alt="Product Image">
+            <div class="small-img-group">
+                <div class="small-img-col">
+                    <img src="img/products/f1.jpg" class="small-img" alt="">
+                </div>
+                <div class="small-img-col">
+                    <img src="img/products/f2.jpg" class="small-img" alt="">
+                </div>
+                <div class="small-img-col">
+                    <img src="img/products/f3.jpg" class="small-img" alt="">
+                </div>
+                <div class="small-img-col">
+                    <img src="img/products/f4.jpg" class="small-img" alt="">
+                </div>
+            </div>
+        </div>
+
+        <div class="single-pro-details">
+            <h6>Home / T-Shirt</h6>
+            <h4>Cartoon Astronaut T-Shirt</h4>
+            <h2 id="price"></h2>
+            <select>
+                <option>Select Size</option>
+                <option>XL</option>
+                <option>XXL</option>
+                <option>Small</option>
+                <option>Large</option>
+                <option>Medium</option>
+            </select>
+            <!-- <input type="number" value="1" > -->
+            <div class="number-input">
+                <button class="btn-minus">-</button>
+                <input type="number" id="quantity" value="1" min="1">
+                <button class="btn-plus">+</button>
+            </div>
+
+            <button class="normal">Add To Cart</button>
+            <h4>Product Details</h4>
+            <span>Down Shirt, crafted from 100% premium cotton for
+                superior comfort and durability. This timeless piece
+                features a modern tailored fit, button-down collar,and
+                adjustable cuffs. Available in versatile colors like crisp
+                white, classic blue, and timeless black, it’s perfect for
+                both professional and casual settings</span>
+        </div>
+
+    </section>
+
+    <section>
+        <div id="newsletter" class="section-p1 section-m1">
+            <div class="newstext">
+                <h4>Sign up for Newsletters</h4>
+                <p>Get E-mail updates about our latest shop and <span>special offers.</span></p>
+            </div>
+            <div class="form">
+                <input type="text" placeholder="Your email address">
+                <button class="normal">Sign Up</button>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <footer class="section-p1">
+            <div class="col">
+                <img class="logo" src="img/logo.png" alt="">
+                <h4>Contact</h4>
+                <p><strong>Addresss:</strong> 562 wellington Road 32, San Francisco</p>
+                <p><strong>Phone</strong>+01 2222 365 /(+91) 99 5600 5188</p>
+                <p><strong>Hour:</strong>10:00 - 18:00,Mon - sat</p>
+                <div class="follow">
+                    <h4>Follow us</h4>
+                    <div class="icon">
+                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-pinterest-p"></i>
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col">
+                <h4>About</h4>
+                <a href="#">About us</a>
+                <a href="#">Delivery Information</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#"> Terms & Condition</a>
+                <a href="#">Contact</a>
+
+            </div>
+            <div class="col">
+                <h4>My Account</h4>
+                <a href="#">Sign in</a>
+                <a href="#">View cort</a>
+                <a href="#">My Watchlist</a>
+                <a href="#"> Track My Order</a>
+                <a href="#">Help</a>
+
+            </div>
+            <div class="col install">
+                <h4>Install App</h4>
+                <p> From App Srore or Google play</p>
+                <div class="row">
+                    <img src="img/pay/app.jpg" alt="">
+                    <img src="img/pay/play.jpg" alt="">
+                </div>
+                <p>Secured Payment Gateways</p>
+                <img src="img/pay/pay.png" alt="">
+            </div>
+
+            <div class="copyright">
+                <p> @ 2024,Tech etc - Html Ecommerce Template</p>
+            </div>
+        </footer>
+    </section>
+
+    <script>
+        //      document.addEventListener('DOMContentLoaded', function () {
+        //     function updateMainImage(imgSrc) {
+        //         document.getElementById('mainImage').src = imgSrc;
+        //         const imageIndex = imgSrc.lastIndexOf('/') + 1;
+        //         const imageName = imgSrc.substring(imageIndex);
+        //         const productPrice = urlParams.get('price');
+        //         const newUrl = `sproduct2.html?image=img/products/${imageName}&price=${productPrice}`;
+        //         history.pushState({}, '', newUrl);
+        //     }
+
+        //     const urlParams = new URLSearchParams(window.location.search);
+        //     const initialProductImage = urlParams.get('image');
+        //     if (initialProductImage) {
+        //         document.getElementById('mainImage').src = initialProductImage;
+        //         document.getElementById('price').textContent = '$' + urlParams.get('price');
+        //     }
+
+        //     const smallImages = document.querySelectorAll('#prodetails .small-img-col img');
+        //     smallImages.forEach(function (smallImg) {
+        //         smallImg.addEventListener('click', function () {
+        //             const imgSrc = this.src;
+        //             updateMainImage(imgSrc);
+        //         });
+        //     });
+
+        //     const input = document.getElementById('quantity');
+        //     const btnPlus = document.querySelector('.btn-plus');
+        //     const btnMinus = document.querySelector('.btn-minus');
+        //     const addToCartBtn = document.querySelector('.normal');
+
+        //     btnPlus.addEventListener('click', function () {
+        //         const currentValue = parseInt(input.value) || 0;
+        //         input.value = currentValue + 1;
+        //     });
+
+        //     btnMinus.addEventListener('click', function () {
+        //         const currentValue = parseInt(input.value) || 0;
+        //         if (currentValue > 1) {
+        //             input.value = currentValue - 1;
+        //         }
+        //     });
+
+        //     addToCartBtn.addEventListener('click', function () {
+        //         const productName = document.querySelector('.single-pro-details h4').textContent;
+        //         const productImage = document.getElementById('mainImage').src;
+        //         const productPrice = parseFloat(urlParams.get('price'));
+        //         const quantity = parseInt(input.value);
+
+        //         const newItem = {
+        //             id: Date.now().toString(),
+        //             name: productName,
+        //             image: productImage,
+        //             price: productPrice,
+        //             quantity: quantity
+        //         };
+
+        //         let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+        //         cartItems.push(newItem);
+        //         localStorage.setItem('cart', JSON.stringify(cartItems));
+
+        //         // Update cart icon count in navbar
+        //         const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+        //         const cartCountDesktop = document.querySelector('#cart-count-desktop');
+        //         const cartCountMobile = document.querySelector('#cart-count-mobile');
+
+        //         cartCountDesktop.textContent = cartCount;
+        //         cartCountMobile.textContent = cartCount;
+
+        //         // Optional: Show confirmation message or animate cart icon
+        //         alert('Product added to cart!');
+        //     });
+
+        //     // Initialize cart count on page load
+        //     const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+        //     const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+        //     document.querySelector('#cart-count-desktop').textContent = cartCount;
+        //     document.querySelector('#cart-count-mobile').textContent = cartCount;
+
+        //     // Other script functions...
+        // });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            function updateMainImage(imgSrc) {
+                document.getElementById('mainImage').src = imgSrc;
+                const imageIndex = imgSrc.lastIndexOf('/') + 1;
+                const imageName = imgSrc.substring(imageIndex);
+                const productPrice = urlParams.get('price');
+                const newUrl = `sproduct2.html?image=img/products/${imageName}&price=${productPrice}`;
+                history.pushState({}, '', newUrl);
+            }
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialProductImage = urlParams.get('image');
+            if (initialProductImage) {
+                document.getElementById('mainImage').src = initialProductImage;
+                document.getElementById('price').textContent = '$' + urlParams.get('price');
+            }
+
+            const smallImages = document.querySelectorAll('#prodetails .small-img-col img');
+            smallImages.forEach(function (smallImg) {
+                smallImg.addEventListener('click', function () {
+                    const imgSrc = this.src;
+                    updateMainImage(imgSrc);
+                });
+            });
+
+            const input = document.getElementById('quantity');
+            const btnPlus = document.querySelector('.btn-plus');
+            const btnMinus = document.querySelector('.btn-minus');
+            const addToCartBtn = document.querySelector('.normal');
+
+            btnPlus.addEventListener('click', function () {
+                const currentValue = parseInt(input.value) || 0;
+                input.value = currentValue + 1;
+            });
+
+            btnMinus.addEventListener('click', function () {
+                const currentValue = parseInt(input.value) || 0;
+                if (currentValue > 1) {
+                    input.value = currentValue - 1;
+                }
+            });
+
+            addToCartBtn.addEventListener('click', function () {
+                const productName = document.querySelector('.single-pro-details h4').textContent;
+                const productImage = document.getElementById('mainImage').src;
+                const productPrice = parseFloat(urlParams.get('price'));
+                const quantity = parseInt(input.value);
+
+                const newItem = {
+                    id: Date.now().toString(),
+                    name: productName,
+                    image: productImage,
+                    price: productPrice,
+                    quantity: quantity
+                };
+
+                let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+                cartItems.push(newItem);
+                localStorage.setItem('cart', JSON.stringify(cartItems));
+
+                // Update cart icon count in navbar
+                const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+                const cartCountDesktop = document.querySelector('#cart-count');
+                const cartCountMobile = document.querySelector('#cart-count-mobile');
+
+                cartCountDesktop.textContent = cartCount;
+                cartCountMobile.textContent = cartCount;
+
+                // Optional: Show confirmation message or animate cart icon
+                alert('Product added to cart!');
+            });
+
+            // Initialize cart count on page load
+            const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
+            document.querySelector('#cart-count').textContent = cartCount;
+            document.querySelector('#cart-count-mobile').textContent = cartCount;
+        });
+
+
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>
